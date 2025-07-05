@@ -1,0 +1,126 @@
+.app-container {
+  padding: 30px;
+  font-family: sans-serif;
+  text-align: center;
+}
+.carousel-wrapper {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 16px;
+  scroll-behavior: smooth;
+}
+.carousel-wrapper::-webkit-scrollbar {
+  height: 16px; 
+}
+
+.carousel-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 8px;
+}
+
+.carousel-wrapper::-webkit-scrollbar-thumb {
+  background: #c1c1c1; 
+  border-radius: 8px;
+  border: 3px solid transparent; 
+  background-clip: content-box;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: row;
+
+  gap: 14px;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column; /* İçerikler dikeyde dizilsin */
+  align-items: center;    /* Ortala */
+  justify-content: center;
+  gap: 10px;             
+  
+  width: 250px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: all 0.2s ease-in-out;
+}
+
+
+.product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.product-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+.product-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+p {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #444;
+}
+.text-yellow-500 {
+  color: #facc15; /* Tailwind yellow-400 gibi */
+}
+
+.text-lg {
+  font-size: 1.125rem;
+}
+.color-picker {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+  justify-content: center;
+}
+
+.color-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s ease;
+}
+
+.color-circle.yellow {
+  background-color: #e6ca97; /* Yellow gold */
+}
+
+.color-circle.white {
+  background-color: #d9d9d9; /* White gold */
+}
+
+.color-circle.rose {
+  background-color: #e1a4a9; /* Rose gold */
+}
+
+.color-circle.selected {
+  border: 2px solid black;
+}
+.selected-color-label {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4b5563;
+  text-align: center;
+}
+
