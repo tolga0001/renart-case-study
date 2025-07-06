@@ -2,27 +2,51 @@ import logo from './logo.svg';
 import './App.css';
 import { useEffect, useState } from 'react';
 import StarRating from './StarRating';
+import { useCallback } from "react";
+
 
 function App() {
   const [products, setProducts] = useState([]);
 const [selectedColors,setSelectedColors] = useState({})
-const BACKEND_BASE_URL = "http://localhost:8000";
-  useEffect(()=>{
-    const fetchProducts = async () =>{
+const [minPrice,setMinPrice] = useState('');
+const [maxPrice,setMaxPrice] = useState('');
+const [minScore,setMinScore] = useState('');
+const BACKEND_BASE_URL = "http://192.168.50.2:8000";
+
+  
+
+
+
+    const fetchProducts = useCallback(async () =>{
       try{
-        const response = await fetch(BACKEND_BASE_URL+"/products");
+        let productsFilteredUrl = BACKEND_BASE_URL+"/products"
+        const params = []
+        if (minPrice) params.push(`minPrice=${minPrice}`);
+        if (maxPrice) params.push(`maxPrice=${maxPrice}`);
+        if (minScore) params.push(`minScore=${minScore}`);
+        if (params.length > 0) {
+        productsFilteredUrl += `?${params.join('&')}`;
+      }
+        const response = await fetch(productsFilteredUrl);
         const data = await response.json();
         console.log("Parsed JSON data:", data);  
-
-      setProducts(data);
         setProducts(data);
+
+      
       }
+
       catch(err){
         console.error("Error while fetching the products",err);
       }
-    };
-    fetchProducts();
-  },[])
+    },[minPrice,maxPrice,minScore]);
+     
+     
+
+    const handleFilter = () => {
+    fetchProducts(); // inputlara göre yeni veri çek
+  };
+   
+
 
   const handleColorSelect = (productIndex,color)=>{
     setSelectedColors((prev)=>({
@@ -30,12 +54,44 @@ const BACKEND_BASE_URL = "http://localhost:8000";
       [productIndex]:color
     }))
   };
+  useEffect(() => {
+  fetchProducts(); // tüm ürünler gelir
+}, []);
+   
   
   
  return (
   <div className="app-container">
     <h1>Product List</h1>
+    <div className='filter-bar'>
+
+      <input
+      type='number'
+      placeholder='Min Price(USD)'
+      value={minPrice}
+      onChange={(e)=> setMinPrice(e.target.value)}
+      />
+       <input
+      type='number'
+      placeholder='Max Price(USD)'
+      value={maxPrice}
+      onChange={(e)=> setMaxPrice(e.target.value)}
+      />
+       <input
+          type="number"
+          step="0.1"
+          placeholder="Min Rating (1-5)"
+          value={minScore}
+          onChange={(e) => setMinScore(e.target.value)}
+        />
+      <button onClick={handleFilter}>Apply Filter</button>
+
+    </div>
    <div className="carousel-wrapper">
+   {products.length==0 ?(
+      <p className="no-results">No products found matching your criteria.</p>
+
+   ): (
     <div className="product-list">
       {products.map((p, index) => (
         <div className="product-card" key={index}>
@@ -80,6 +136,7 @@ const BACKEND_BASE_URL = "http://localhost:8000";
         </div>
       ))}
     </div>
+   )}
   </div>
 </div>
 )

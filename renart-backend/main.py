@@ -1,8 +1,8 @@
 import json
-
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
+
 
 app = FastAPI()
 
@@ -36,15 +36,29 @@ async def get_gold_price():
 
 
 @app.get("/products")
-async def get_products():
+async def get_products(minPrice: float = None, maxPrice: float = None, minScore: float = None):
     with open("products.json", "r") as f:
         products = json.load(f)
 
     gold_price = await get_gold_price()
     print(f"gold price is {gold_price}")
+    filteredProducts = []
     for product in products:
         price = (product["popularityScore"] + 1) * product["weight"] * gold_price
         print(f"{product['name']}->{price}")
         product["price"] = round(price,2)
-
-    return products
+        score_out_of_5 = product["popularityScore"] * 5
+        print(f"minPrice is {minPrice}")
+        print(f"maxPrice is {maxPrice}")
+        print(f"minScore is {minScore}")
+        #apply filtering
+        if minPrice is not None and product["price"]<minPrice:
+            continue
+        if maxPrice is not None and product["price"]>maxPrice:
+            continue
+        if minScore is not None and score_out_of_5<minScore:
+            continue
+        print("is adding...")
+        filteredProducts.append(product)
+        print("------------------------------------\n")
+    return filteredProducts
