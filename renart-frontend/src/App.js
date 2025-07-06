@@ -11,7 +11,8 @@ const [selectedColors,setSelectedColors] = useState({})
 const [minPrice,setMinPrice] = useState('');
 const [maxPrice,setMaxPrice] = useState('');
 const [minScore,setMinScore] = useState('');
-const BACKEND_BASE_URL = "http://192.168.50.2:8000";
+const BACKEND_BASE_URL = "https://renart-backend.onrender.com";
+
 
   
 
