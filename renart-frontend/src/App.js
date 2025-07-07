@@ -3,7 +3,7 @@ import './App.css';
 import { useEffect, useState } from 'react';
 import StarRating from './StarRating';
 import { useCallback } from "react";
-
+import './Fonts/fonts.css'
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -89,7 +89,7 @@ const BACKEND_BASE_URL = "https://renart-backend.onrender.com";
 
     </div>
    <div className="carousel-wrapper">
-   {products.length==0 ?(
+   {products.length===0 ?(
       <p className="no-results">No products found matching your criteria.</p>
 
    ): (
@@ -106,8 +106,8 @@ const BACKEND_BASE_URL = "https://renart-backend.onrender.com";
             className="product-img"
           />
 
-          <h2>{p.name}</h2>
-          <p>${p.price} USD</p>
+     <h2 className="product-name">{p.name}</h2>
+     <p className="product-price">${p.price} USD</p>
 
 
           {/* Color selector */}

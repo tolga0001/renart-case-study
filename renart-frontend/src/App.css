@@ -67,6 +67,12 @@
   gap: 2px;
   
 }
+.score-text {
+  font-size: 14px;
+  font-family: 'Avenir', sans-serif;
+}
+
+
 
 h2 {
   font-size: 18px;
@@ -116,12 +122,25 @@ p {
 .color-circle.selected {
   border: 2px solid black;
 }
+.color-circle:hover {
+  opacity: 0.8;
+}
 .selected-color-label {
   margin-top: 6px;
   font-size: 14px;
+  font-family: av;
   font-weight: 500;
   color: #4b5563;
   text-align: center;
+}
+.product-name {
+  font-family: 'MontserratMedium', sans-serif;
+  font-size: 15px;
+}
+
+.product-price {
+  font-family: 'MontserratRegular', sans-serif;
+  font-size: 15px;
 }
 .no-results {
   font-size: 18px;
@@ -150,6 +169,7 @@ p {
   cursor: pointer;
   font-weight: bold;
 }
+
 @media (max-width: 768px) {
   .filter-bar {
     flex-direction: column;
@@ -181,6 +201,8 @@ p {
   .product-img {
     max-height: 200px;
   }
+ 
+
 }
 
 @media (max-width: 480px) {
