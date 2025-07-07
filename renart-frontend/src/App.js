@@ -63,7 +63,7 @@ const BACKEND_BASE_URL = "https://renart-backend.onrender.com";
   
  return (
   <div className="app-container">
-    <h1>Product List</h1>
+    <h1 className="page-title">Product List</h1>
     <div className='filter-bar'>
 
       <input
