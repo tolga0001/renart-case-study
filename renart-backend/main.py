@@ -2,6 +2,7 @@ import json
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import httpx
+from typing import Optional
 
 
 app = FastAPI()
@@ -26,10 +27,10 @@ async def get_gold_price():
             "unit": "g"
         }
         async with httpx.AsyncClient() as client:
-            #response = await client.get(url, params=params)
-            #data = response.json()
-            #107 approx
-            return 107
+            response = await client.get(url, params=params)
+            data = response.json()
+            #print(f"data is {data["metals"]}")
+            return float(data["metals"]["gold"])
     except Exception as e:
         print("Gold API error:", e)
         return 70.0  # fallback
